@@ -3,15 +3,13 @@ import re
 
 
 def sum_multiples(input):
-    matches = re.findall("mul\\((\\d+),(\\d+)\\)", input)
+    matches = re.findall(r"mul\((\d+),(\d+)\)", input)
     return sum([int(x) * int(y) for x, y in matches])
 
 
 def sum_enabled(input):
-    # remove everything fron don't to do.
-    input = re.sub("don't.*?do\\(\\)", "", input)
-    # remove everything fron don't -> end if we still got a don't
-    input = re.sub("don't.*", "", input)
+    # remove everything fron don't to do or don't to $
+    input = re.sub(r"don't.*?(do\(\)|$)", "", input)
     return sum_multiples(input)
 
 
